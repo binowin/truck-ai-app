@@ -42,4 +42,5 @@ if uploaded_file:
         st.success("✅ Prediction completed!")
         
         st.subheader("📊 Data Overview")
-        st.datafr
+       st.dataframe(data)
+
