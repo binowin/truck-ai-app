@@ -55,13 +55,11 @@ if uploaded_file:
 else:
     st.info("👆 Please upload a CSV file to begin.")
 
-   else:
-    st.info("Awaiting CSV file upload...")
+else:
+        st.info("Awaiting CSV file upload...")
 
-# 🔚 End of CSV section
-# ----------------------
-
-# ✨ NEW SECTION: Mechanic Notes Analyzer ✨
+# ✅ NEW SECTION: Mechanic Notes Analyzer
+# (This is fully outside the CSV upload block)
 
 import re
 from sklearn.feature_extraction.text import TfidfVectorizer
