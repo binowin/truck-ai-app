@@ -54,8 +54,9 @@ if uploaded_file:
         st.error("❌ Your CSV must include: Engine_Temp, Oil_Pressure, RPM, Mileage")
 else:
     st.info("👆 Please upload a CSV file to begin.")
-        else:
-        st.info("Awaiting CSV file upload...")
+    
+else:
+    st.info("Awaiting CSV file upload...")
 
 # ✅ NEW SECTION: Mechanic Notes Analyzer
 # (This is fully outside the CSV upload block)
