@@ -54,3 +54,32 @@ if uploaded_file:
         st.error("❌ Your CSV must include: Engine_Temp, Oil_Pressure, RPM, Mileage")
 else:
     st.info("👆 Please upload a CSV file to begin.")
+
+
+import re
+from sklearn.feature_extraction.text import TfidfVectorizer
+
+st.markdown("---")
+st.subheader("🛠️ Mechanic Notes Analyzer")
+
+text_input = st.text_area("Paste mechanic notes or comments here:")
+
+if st.button("Analyze Comments"):
+    if text_input.strip() == "":
+        st.warning("Please enter some text to analyze.")
+    else:
+        logs = [text_input]
+
+        # Simple NLP with TF-IDF
+        vectorizer = TfidfVectorizer(stop_words='english')
+        X_text = vectorizer.fit_transform(logs)
+        feature_names = vectorizer.get_feature_names_out()
+        scores = X_text.toarray().flatten()
+
+        keywords = list(zip(feature_names, scores))
+        sorted_keywords = sorted(keywords, key=lambda x: x[1], reverse=True)[:5]
+
+        st.write("🔍 **Top Keywords Detected:**")
+        for word, score in sorted_keywords:
+            st.markdown(f"- `{word}` (score: {score:.2f})")
+
