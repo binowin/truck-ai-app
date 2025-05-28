@@ -39,8 +39,21 @@ if uploaded_file:
         predictions = model.predict(data[['Engine_Temp', 'Oil_Pressure', 'RPM', 'Mileage']])
         data['Failure Risk'] = [emoji_map[labels[p]] for p in predictions]
 
-        st.success("✅ Prediction completed!")
+               st.success("✅ Prediction completed!")
         
         st.subheader("📊 Data Overview")
-       st.dataframe(data)
+        st.dataframe(data)
+
+        # Count risk levels (original labels, not emojis)
+        count_raw = [labels[p] for p in predictions]
+        risk_counts = pd.Series(count_raw).map({
+            'Low': '🟢 Low',
+            'Medium': '🟡 Medium',
+            'High': '🔴 High'
+        }).value_counts()
+
+        col1, col2, col3 = st.columns(3)
+        col1.metric("🟢 Low Risk", risk_counts.get('🟢 Low', 0))
+        col2.metric("🟡 Medium Risk", risk_counts.get('🟡 Medium', 0))
+        col3.metric("🔴 High Risk", risk_counts.get('🔴 High', 0))
 
