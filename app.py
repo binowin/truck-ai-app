@@ -26,7 +26,7 @@ labels = {0: 'Low', 1: 'Medium', 2: 'High'}
 
 # Main Logic
 if uploaded_file:
-    data = pd.read_csv(uploaded_file)
+    data['Failure Risk'] = [labels[p] for p in predictions]
 
     if {'Engine_Temp', 'Oil_Pressure', 'RPM', 'Mileage'}.issubset(data.columns):
         predictions = model.predict(data[['Engine_Temp', 'Oil_Pressure', 'RPM', 'Mileage']])
